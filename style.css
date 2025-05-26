@@ -1,0 +1,15 @@
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+}
