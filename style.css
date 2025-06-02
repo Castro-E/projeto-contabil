@@ -1,15 +1,9 @@
-
-.vh-100 {
-    min-height: 100vh;
+/* style.css */
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave */
 }
 
 .card {
     border: none;
     border-radius: 0.75rem;
-}
-
-
-.alert {
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
 }
