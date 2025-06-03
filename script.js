@@ -1,8 +1,9 @@
-// script.js (VERSÃO FINAL E COMPLETA - CORRIGIDA)
+// script.js (VERSÃO FINAL E COMPLETA PARA ENTREGA)
 
 const API_URL = 'http://127.0.0.1:5000';
 
-// Este trecho decide qual função rodar, dependendo da página
+// --- CONTROLE PRINCIPAL ---
+// Este trecho decide qual função rodar, dependendo da página que o usuário abriu.
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('loginForm')) {
         handleLoginPage();
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// FUNÇÃO DE LOGIN (ESTAVA FALTANDO)
+// --- PÁGINA DE LOGIN ---
 function handleLoginPage() {
     const loginForm = document.getElementById('loginForm');
     const messageDiv = document.getElementById('messageDiv');
@@ -35,6 +36,7 @@ function handleLoginPage() {
             const data = await response.json();
             if (!response.ok) throw new Error(data.message);
             
+            // Se o login der certo, salva o token e vai para o dashboard
             localStorage.setItem('accessToken', data.token);
             window.location.href = 'dashboard.html';
 
@@ -44,7 +46,7 @@ function handleLoginPage() {
     });
 }
 
-// FUNÇÃO DE REGISTRO (ESTAVA FALTANDO)
+// --- PÁGINA DE REGISTRO ---
 function handleRegisterPage() {
     const registerForm = document.getElementById('registerForm');
     const messageDiv = document.getElementById('messageDiv');
@@ -64,6 +66,7 @@ function handleRegisterPage() {
             const data = await response.json();
             if (!response.ok) throw new Error(data.message);
 
+            // Se o cadastro der certo, avisa e manda para a página de login
             messageDiv.innerHTML = `<div class="alert alert-success">${data.message} Redirecionando para o login...</div>`;
             setTimeout(() => { window.location.href = 'index.html'; }, 2000);
 
@@ -73,8 +76,9 @@ function handleRegisterPage() {
     });
 }
 
-// FUNÇÃO DO DASHBOARD (A ÚNICA QUE VOCÊ TINHA)
+// --- PÁGINA DO DASHBOARD ---
 function handleDashboardPage() {
+    // Se não tiver token, expulsa o usuário da página
     const token = localStorage.getItem('accessToken');
     if (!token) {
         window.location.href = 'index.html';
@@ -86,11 +90,13 @@ function handleDashboardPage() {
     const logoutButton = document.getElementById('logoutButton');
     const submitButton = uploadForm.querySelector('button[type="submit"]');
 
+    // Lógica do botão de sair
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('accessToken');
         window.location.href = 'index.html';
     });
 
+    // Lógica do formulário de upload
     uploadForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         submitButton.disabled = true;
@@ -109,7 +115,6 @@ function handleDashboardPage() {
         formData.append('file', fileInput.files[0]);
 
         try {
-            // A rota de upload no app.py não precisa mais de token na versão de emergência
             const response = await fetch(`${API_URL}/processar-arquivo`, {
                 method: 'POST',
                 body: formData
