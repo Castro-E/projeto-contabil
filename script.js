@@ -1,9 +1,7 @@
-// script.js (VERSÃO FINAL E COMPLETA PARA ENTREGA)
 
 const API_URL = 'http://127.0.0.1:5000';
 
-// --- CONTROLE PRINCIPAL ---
-// Este trecho decide qual função rodar, dependendo da página que o usuário abriu.
+
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('loginForm')) {
         handleLoginPage();
@@ -76,7 +74,6 @@ function handleRegisterPage() {
     });
 }
 
-// --- PÁGINA DO DASHBOARD ---
 function handleDashboardPage() {
     // Se não tiver token, expulsa o usuário da página
     const token = localStorage.getItem('accessToken');
